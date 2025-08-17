@@ -1,0 +1,14 @@
+[
+  {
+    "name": "High DLQ Count",
+    "type": "query alert",
+    "query": "sum(last_5m):sum:dlq.count{*} > 10",
+    "message": "DLQ rising. Investigate workers.",
+    "options": {
+      "notify_audit": false,
+      "locked": false,
+      "timeout_h": 0,
+      "new_group_delay": 60
+    }
+  }
+]

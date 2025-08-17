@@ -1,0 +1,9 @@
+# Code ownership by area
+/packages/domain/ @payments-platform
+/packages/ports/ @payments-platform
+/packages/lib/ @payments-platform
+/packages/gateways/ @gateway-team
+/packages/adapters/ @platform-integrations
+/packages/handlers/ @api-team
+/packages/workers/ @reliability
+/infra/ @sre-team

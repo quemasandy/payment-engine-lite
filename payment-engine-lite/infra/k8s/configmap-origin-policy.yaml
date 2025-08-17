@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: origin-policies
+data:
+  originA.json: |
+    {"originId":"originA","locale":"en-US","currency":"USD","responseShape":{"rename":{"id":"paymentId"},"omit":[]},"gatewaySelector":"mock","fraudRules":{},"retryProfile":{"maxAttempts":3,"backoffMs":200},"webhooks":{}}

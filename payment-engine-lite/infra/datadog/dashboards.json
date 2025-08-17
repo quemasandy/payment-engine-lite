@@ -1,0 +1,38 @@
+{
+  "title": "Payment Engine Lite - Overview",
+  "widgets": [
+    {
+      "definition": {
+        "title": "Payments Created",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:payments.created{*}.rollup(sum, 60)"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "DLQ Count",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:dlq.count{*}.rollup(sum, 60)"
+          }
+        ]
+      }
+    },
+    {
+      "definition": {
+        "title": "Latency p95",
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "p95:latency.ms{*}"
+          }
+        ]
+      }
+    }
+  ]
+}
