@@ -1,0 +1,16 @@
+{
+  "name": "@ports/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "echo ok",
+    "lint": "echo ok"
+  },
+  "dependencies": {
+    "@domain/core": "^0.1.0"
+  },
+  "exports": "./src/index.ts"
+}

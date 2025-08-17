@@ -1,0 +1,19 @@
+{
+  "name": "@gateways/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest",
+    "lint": "echo ok"
+  },
+  "dependencies": {
+    "@domain/core": "^0.1.0",
+    "@ports/core": "^0.1.0",
+    "@lib/core": "^0.1.0",
+    "uuid": "^9.0.1"
+  },
+  "exports": "./src/index.ts"
+}

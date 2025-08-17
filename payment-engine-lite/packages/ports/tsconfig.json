@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "paths": {
+      "@domain/*": ["../domain/src/*"]
+    }
+  },
+  "references": [{ "path": "../domain" }],
+  "include": ["src"]
+}

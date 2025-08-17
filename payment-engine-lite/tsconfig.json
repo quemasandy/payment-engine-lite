@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/domain" },
+    { "path": "packages/ports" },
+    { "path": "packages/lib" },
+    { "path": "packages/gateways" },
+    { "path": "packages/adapters" },
+    { "path": "packages/handlers" },
+    { "path": "packages/workers" }
+  ]
+}

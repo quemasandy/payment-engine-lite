@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "paths": {
+      "@domain/*": ["../domain/src/*"],
+      "@ports/*": ["../ports/src/*"],
+      "@lib/*": ["../lib/src/*"],
+      "@adapters/*": ["../adapters/src/*"],
+      "@gateways/*": ["../gateways/src/*"]
+    }
+  },
+  "references": [
+    { "path": "../domain" },
+    { "path": "../ports" },
+    { "path": "../lib" },
+    { "path": "../adapters" },
+    { "path": "../gateways" }
+  ],
+  "include": ["src"]
+}

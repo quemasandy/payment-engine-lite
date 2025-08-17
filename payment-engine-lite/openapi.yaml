@@ -1,0 +1,148 @@
+openapi: 3.1.0
+info:
+  title: Payment Engine Lite API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /payments:
+    post:
+      summary: Create a payment (authorize/capture)
+      parameters:
+        - in: query
+          name: mode
+          schema: { type: string, enum: [sync, async], default: sync }
+          required: false
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+        - in: header
+          name: X-Origin-Id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+            examples:
+              originA:
+                summary: Origin A (US)
+                value:
+                  originId: originA
+                  amount: 1999
+                  currency: USD
+                  token: tok_visa_123
+                  orderId: order-123
+                  capture: true
+              originEU:
+                summary: Origin EU (EUR)
+                value:
+                  originId: originEU
+                  amount: 2500
+                  currency: EUR
+                  token: tok_eu_abc
+                  orderId: ord-9
+                  capture: false
+      responses:
+        '201':
+          description: Created (sync)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PaymentResponse' }
+        '202':
+          description: Accepted (async)
+        '409': { description: Idempotency conflict }
+        '422': { description: Validation error }
+        '500': { description: Internal error }
+  /payments/{id}:
+    get:
+      summary: Get payment by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Payment
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Payment' }
+        '404': { description: Not found }
+  /refunds:
+    post:
+      summary: Create refund
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+        - in: header
+          name: X-Origin-Id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+      responses:
+        '201': { description: Created }
+        '202': { description: Accepted }
+  /webhooks/gateway:
+    post:
+      summary: Gateway webhooks (simulated)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object }
+      responses: { '200': { description: Ok } }
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      required: [originId, amount, currency, token]
+      properties:
+        originId: { type: string }
+        amount: { type: integer, minimum: 1 }
+        currency: { type: string, pattern: '^[A-Z]{3}$' }
+        token: { type: string, description: 'Token-only. No PAN' }
+        orderId: { type: string }
+        capture: { type: boolean, default: true }
+        metadata: { type: object, additionalProperties: true }
+    Payment:
+      type: object
+      properties:
+        id: { type: string }
+        status: { type: string, enum: [requested, authorized, captured, settled, failed] }
+        amount: { type: integer }
+        currency: { type: string }
+        originId: { type: string }
+        orderId: { type: string }
+        gateway: { type: string }
+        createdAt: { type: string, format: date-time }
+    PaymentResponse:
+      type: object
+      properties:
+        id: { type: string }
+        status: { type: string }
+        amount: { type: integer }
+        currency: { type: string }
+        originId: { type: string }
+        orderId: { type: string }
+        gateway: { type: string }
+        authId: { type: string }
+        captureId: { type: string }
+    RefundRequest:
+      type: object
+      required: [originId, paymentId, amount]
+      properties:
+        originId: { type: string }
+        paymentId: { type: string }
+        amount: { type: integer }
+        reason: { type: string }

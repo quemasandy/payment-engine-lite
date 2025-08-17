@@ -1,0 +1,25 @@
+{
+  "name": "@lib/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest",
+    "lint": "echo ok"
+  },
+  "dependencies": {
+    "pino": "^9.3.2",
+    "@domain/core": "^0.1.0",
+    "@ports/core": "^0.1.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.5.4"
+  },
+  "exports": "./src/index.ts"
+}
